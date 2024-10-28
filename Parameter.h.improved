@@ -1,0 +1,29 @@
+//A modified example of the Parameter class with some improvements
+template <typename T>
+class Parameter {
+public:
+    Parameter() : data(T()) {}
+    explicit Parameter(T paramT) : data(paramT) {}
+
+    // Copy and move semantics
+    Parameter(const Parameter& other) : data(other.data) {}
+    Parameter(Parameter&& other) noexcept : data(std::move(other.data)) {}
+    
+    Parameter& operator=(const Parameter& other) {
+        if (this != &other) {
+            data = other.data;
+        }
+        return *this;
+    }
+    
+    Parameter& operator=(Parameter&& other) noexcept {
+        if (this != &other) {
+            data = std::move(other.data);
+        }
+        return *this;
+    }
+
+    const T& getData() const { return data; }
+
+    T data;
+};
